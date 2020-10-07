@@ -1,0 +1,47 @@
+print("Enabling Supernova's ESP | Arsenal")
+
+local arsenalplayers = game.Players:GetPlayers()
+local BodyESP = Instance.new("Part")
+local BoxHandleAdornment = Instance.new("BoxHandleAdornment")
+
+-- BodyESP
+
+BodyESP.Anchored = true
+BodyESP.CanCollide = false
+BodyESP.Color = Color3.fromRGB(81, 0, 122)
+BodyESP.CastShadow = false
+BodyESP.Transparency = 0.65
+BodyESP.Name = "BodyESP"
+BodyESP.Parent = game:GetService("Workspace")
+
+-- BoxHandleAdornment
+
+BoxHandleAdornment.Adornee = nil
+BoxHandleAdornment.AlwaysOnTop = true
+BoxHandleAdornment.Color3 = Color3.fromRGB(81, 0, 122)
+BoxHandleAdornment.Size = Vector3.new(2, 2, 1)
+BoxHandleAdornment.Transparency = 0.5
+BoxHandleAdornment.ZIndex = 2
+BoxHandleAdornment.Parent = BodyESP
+
+game.Players.PlayerAdded:Connect(function(plr)
+    BodyESP:Clone()
+    BodyESP.Parent = game.Workspace:WaitForChild(plr.Name)
+    BodyESP.BoxHandleAdornment.Adornee = game.Workspace:WaitForChild(plr.Name).HumanoidRootPart
+end)
+
+for i, v in pairs(arsenalplayers) do
+    local BoxHandleAdornment = Instance.new("BoxHandleAdornment")
+    BoxHandleAdornment.Adornee = v.character.HumanoidRootPart
+    BoxHandleAdornment.AlwaysOnTop = true
+    BoxHandleAdornment.Color3 = Color3.fromRGB(81, 0, 122)
+    BoxHandleAdornment.Size = Vector3.new(2, 2, 1)
+    BoxHandleAdornment.Transparency = 0.5
+    BoxHandleAdornment.ZIndex = 2
+    BoxHandleAdornment.Parent = v.Character
+end
+
+local plr = game.Players.LocalPlayer
+game.Workspace:WaitForChild(plr.Name).BoxHandleAdornment:Destroy()
+
+print("Enabled Supernova's ESP | Arsenal")
